@@ -1,15 +1,18 @@
-//============================================================================
-// Name        : circularBuffer.cpp
-// Author      : Muahid Abbas
-// Version     :
-// Copyright   : 
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+ * CircularBuffer.cpp
+ *
+ *  Created on: 29 Jun 2021
+ *      Author: engrm
+ */
 
-#include <iostream>
-using namespace std;
+#include "CircularBuffer.h"
 
-int main() {
-	cout << "Hello" << endl; // prints Hello
-	return 0;
+CircularBuffer::~CircularBuffer() {
+	// TODO Auto-generated destructor stub
 }
+
+CircularBuffer::CircularBuffer() {
+	// TODO Auto-generated constructor stub
+
+}
+
