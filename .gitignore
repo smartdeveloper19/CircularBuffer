@@ -4,3 +4,4 @@ Debug/makefile
 *.d
 *.o
 .settings/language.settings.xml
+circularBuffer.exe.stackdump
