@@ -4,12 +4,20 @@
 #include "gtest.h"
 
 
-TEST(test_circular_buffer, test_circular_buffer_)
+TEST(test_circular_buffer, test_add_and_remove_from_circular_buffer_)
 {
-	ASSERT_EQ(1,1);
-
+	uint8_t valueFromBuffer = 0;
+	CircularBuffer circularBuffer;
+	circularBuffer.initializeBuffer();
+	ASSERT_TRUE(circularBuffer.addToBuffer(5));
+	ASSERT_TRUE(circularBuffer.addToBuffer(6));
+	ASSERT_EQ(circularBuffer.getBufferSize(), 2);
+	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
+	ASSERT_EQ(valueFromBuffer, 5);
+	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
+	ASSERT_EQ(valueFromBuffer, 6);
+	ASSERT_EQ(circularBuffer.getBufferSize(), 0);
+	ASSERT_FALSE(circularBuffer.isBufferFull());
 }
-
-
 #endif
 
