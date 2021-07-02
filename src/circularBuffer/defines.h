@@ -2,13 +2,12 @@
 #define DEFINES_H_
 #include <stdint.h>
 
-#define BuffER_SIZE 20
+#define BUFFER_SIZE 5
 
 typedef struct {
-    uint8_t buffer[BuffER_SIZE];
+    uint8_t buffer[BUFFER_SIZE];
     int head;
     int tail;
-    int size;
     bool isFull;
 } cBuffer_t;
 
