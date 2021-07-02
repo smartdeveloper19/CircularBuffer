@@ -9,7 +9,7 @@ public:
 	virtual bool addToBuffer(uint8_t data) = 0;
 	virtual bool removeFromBuffer(uint8_t *data) = 0;
 	virtual bool isBufferFull() = 0;
-	virtual uint8_t getBufferSize() = 0;
+	virtual uint8_t getFilledBufferSize() = 0;
 	virtual void resetBuffer() = 0;
 	virtual ~AbsBuffer();
 };
