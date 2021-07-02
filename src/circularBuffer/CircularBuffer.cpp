@@ -21,29 +21,25 @@ void CircularBuffer::initializeBuffer() {
 
 bool CircularBuffer::addToBuffer(uint8_t data) {
 
-	if (bufferBytesAvailable() == 0)
+	if (getFreeBytesSize() == 0)
 	{
 		return false;
 	}
 
-	static int tmp = cbuffer.head;
-	cbuffer.head = tmp++ % BUFFER_SIZE;
-
 	int currHead = cbuffer.head;
 	cbuffer.buffer[currHead] = data;
+	cbuffer.head = cbuffer.head + 1;
 
-//	cbuffer.head = cbuffer.head + 1;
-
-//	if (cbuffer.head == BUFFER_SIZE){
-//		cbuffer.head = 0;
-//	}
+	if (cbuffer.head == BUFFER_SIZE){
+		cbuffer.head = 0;
+	}
 
 	return true;
 }
 
 bool CircularBuffer::removeFromBuffer(uint8_t *data) {
 
-	if (cbuffer.head == cbuffer.tail) {
+	if (!getFilledBufferSize()) {
 		return false; // no data available
 	}
 
@@ -54,42 +50,36 @@ bool CircularBuffer::removeFromBuffer(uint8_t *data) {
 
 	cbuffer.tail = cbuffer.tail + 1;
 
-//	int currTail = cbuffer.tail;
-//
-//	*data = cbuffer.buffer[currTail];
-//	cbuffer.tail = cbuffer.tail + 1;
-
 	return true;
 }
 
-int CircularBuffer::bufferBytesAvailable() {
+int CircularBuffer::getFreeBytesSize() {
 
-	int buffSize = 0;
+	int freeBufferSize = 0;
 	if (cbuffer.tail == 0 && cbuffer.head == BUFFER_SIZE) {
-		buffSize = 0;
+		freeBufferSize = 0;
 	}
 	else if (cbuffer.tail == cbuffer.head){
-		buffSize =  BUFFER_SIZE;
+		freeBufferSize =  BUFFER_SIZE;
 	}
 	else if (cbuffer.head > cbuffer.tail){ // H > T
-		buffSize=  (BUFFER_SIZE - cbuffer.head + cbuffer.tail - 1);
+		freeBufferSize=  (BUFFER_SIZE - cbuffer.head + cbuffer.tail - 1);
 	}
 	else if (cbuffer.head < cbuffer.tail){ // H < T
-		buffSize =  (cbuffer.tail - cbuffer.head - 1);
+		freeBufferSize =  (cbuffer.tail - cbuffer.head - 1);
 	}
 
 	printf("\nHead: %d Tail: %d\n", cbuffer.head, cbuffer.tail);
-	printf("\nSize of Buffer: %d\n", buffSize);
-	return buffSize;
+	printf("\nSize of Buffer: %d\n", freeBufferSize);
+	return freeBufferSize;
 }
 
 bool CircularBuffer::isBufferFull() {
-
-	return (this->bufferBytesAvailable() == 0 ? true : false);
+	return (this->getFreeBytesSize() == 0 ? true : false);
 }
 
 uint8_t CircularBuffer::getFilledBufferSize() {
-	return (BUFFER_SIZE - this->bufferBytesAvailable());
+	return (BUFFER_SIZE - this->getFreeBytesSize());
 }
 
 void CircularBuffer::resetBuffer() {

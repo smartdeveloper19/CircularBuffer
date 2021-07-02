@@ -9,7 +9,7 @@ class CircularBuffer:public AbsBuffer {
 private:
 	cBuffer_t cbuffer;
 
-	int bufferBytesAvailable();
+	int getFreeBytesSize();
 public:
 	void initializeBuffer();
 	bool addToBuffer(uint8_t data);
