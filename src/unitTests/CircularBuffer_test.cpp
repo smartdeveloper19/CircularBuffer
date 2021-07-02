@@ -21,7 +21,7 @@ TEST(test_circular_buffer, test_add_and_remove_from_circular_buffer)
 	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
 	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
 
-	ASSERT_EQ(circularBuffer.getFilledBufferSize(), 3);
+	ASSERT_EQ(circularBuffer.getFilledBufferSize(), BUFFER_SIZE-2);
 	ASSERT_FALSE(circularBuffer.isBufferFull());
 
 	ASSERT_TRUE(circularBuffer.addToBuffer(5));
