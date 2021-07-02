@@ -9,7 +9,7 @@ TEST(test_circular_buffer, test_add_and_remove_from_circular_buffer)
 	CircularBuffer circularBuffer;
 	circularBuffer.initializeBuffer();
 
-	for (int i = 0; i < BUFFER_SIZE; i++)
+	for (int i = 0; i < BUFFER_SIZE-1; i++)
 	{
 		ASSERT_TRUE(circularBuffer.addToBuffer(i));
 	}
@@ -38,36 +38,29 @@ TEST(test_circular_buffer, test_add_and_remove_from_circular_buffer)
 
 TEST(test_circular_buffer, test_circular_buffer_full)
 {
-	uint8_t bufferSize = BUFFER_SIZE;
 	uint8_t valueFromBuffer = 0;
 
 	CircularBuffer circularBuffer;
 	circularBuffer.initializeBuffer();
-	for (int i = 0; i < BUFFER_SIZE; i++)
+	for (int i = 0; i < BUFFER_SIZE-1; i++)
 	{
 		ASSERT_TRUE(circularBuffer.addToBuffer(i));
 	}
 
-//	for (int i = 0; i < BUFFER_SIZE; i++)
-//	{
-//		ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
-//		ASSERT_EQ(valueFromBuffer, i);
-//	}
+	ASSERT_EQ(circularBuffer.getFilledBufferSize(), BUFFER_SIZE); // buffer should be of max size
+	ASSERT_FALSE(circularBuffer.addToBuffer(9)); // should not add more
 
+	for (int i = 0; i < BUFFER_SIZE-1; i++)
+	{
+		ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
+		ASSERT_EQ(valueFromBuffer, i);
+	}
 
-//	ASSERT_EQ(circularBuffer.getBufferSize(), bufferSize);
-//	ASSERT_TRUE(circularBuffer.isBufferFull());
-//
-//	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
-//	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
-//
-//	ASSERT_FALSE(circularBuffer.isBufferFull()); // buffer should not full
-//
-//	ASSERT_TRUE(circularBuffer.addToBuffer(5));
-//	ASSERT_TRUE(circularBuffer.addToBuffer(6));
-//
-//	ASSERT_EQ(circularBuffer.getBufferSize(), bufferSize);
-//	ASSERT_TRUE(circularBuffer.isBufferFull()); // buffer should be full
+	ASSERT_EQ(circularBuffer.getFilledBufferSize(), 0); // size should be zero
+	ASSERT_FALSE(circularBuffer.isBufferFull()); // should not full
+
+	ASSERT_FALSE(circularBuffer.removeFromBuffer(&valueFromBuffer)); // nothing to remove
+	ASSERT_FALSE(circularBuffer.removeFromBuffer(&valueFromBuffer)); // nothing to remove
 }
 
 #endif
