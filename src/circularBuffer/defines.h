@@ -2,14 +2,14 @@
 #define DEFINES_H_
 #include <stdint.h>
 
-#define PACKET_SIZE 10
+#define BUFFER_SIZE 50
 
 typedef struct {
-    uint8_t const packet[PACKET_SIZE];
+    uint8_t buffer[BUFFER_SIZE];
     int head;
     int tail;
     bool isFull;
-} buffer_t;
+} cBuffer_t;
 
 
 #endif /* DEFINES_H_ */
