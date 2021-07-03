@@ -36,7 +36,7 @@ TEST(test_circular_buffer, test_add_and_remove_from_circular_buffer)
 	ASSERT_FALSE(circularBuffer.isBufferFull());
 }
 
-TEST(test_circular_buffer, test_circular_buffer_full)
+TEST(test_circular_buffer, test_circular_buffer_check_limit)
 {
 	uint8_t valueFromBuffer = 0;
 
@@ -61,6 +61,11 @@ TEST(test_circular_buffer, test_circular_buffer_full)
 
 	ASSERT_FALSE(circularBuffer.removeFromBuffer(&valueFromBuffer)); // nothing to remove
 	ASSERT_FALSE(circularBuffer.removeFromBuffer(&valueFromBuffer)); // nothing to remove
+
+	ASSERT_TRUE(circularBuffer.addToBuffer(9)); // should add
+	ASSERT_TRUE(circularBuffer.removeFromBuffer(&valueFromBuffer));
+	ASSERT_EQ(valueFromBuffer, 9);
+	ASSERT_EQ(circularBuffer.getFilledBufferSize(), 1);
 }
 
 #endif
