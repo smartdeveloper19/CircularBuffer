@@ -2,21 +2,23 @@
 #define CIRCULARBUFFER_H_
 
 #include "AbsBuffer.h"
-#include "defines.h"
+
+#define BUFFER_SIZE 5
 
 class CircularBuffer:public AbsBuffer {
 
 private:
-	cBuffer_t cbuffer;
+    int buffer[BUFFER_SIZE];
+    int head;
+    int tail;
+    int byteCounter = 0;
 
 	int getFreeBytesSize();
 public:
-	void initializeBuffer();
-	bool addToBuffer(uint8_t data);
-	bool removeFromBuffer(uint8_t *data);
+	bool addToBuffer(int data);
+	bool removeFromBuffer(int *data);
 	bool isBufferFull();
-	uint8_t getFilledBufferSize();
-	void resetBuffer();
+	int getFilledBufferSize();
 	~CircularBuffer();
 	CircularBuffer();
 };
