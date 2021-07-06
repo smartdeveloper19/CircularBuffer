@@ -2,7 +2,7 @@
 #define DEFINES_H_
 #include <stdint.h>
 
-#define BUFFER_SIZE 50
+#define BUFFER_SIZE 5
 
 typedef struct {
     uint8_t buffer[BUFFER_SIZE];

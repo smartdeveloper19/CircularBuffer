@@ -26,13 +26,13 @@ bool CircularBuffer::addToBuffer(uint8_t data) {
 		return false;
 	}
 
-	int currHead = cbuffer.head;
-	cbuffer.buffer[currHead] = data;
-	cbuffer.head = cbuffer.head + 1;
-
 	if (cbuffer.head == BUFFER_SIZE){
 		cbuffer.head = 0;
 	}
+
+	int currHead = cbuffer.head;
+	cbuffer.buffer[currHead] = data;
+	cbuffer.head = cbuffer.head + 1;
 
 	return true;
 }
@@ -43,7 +43,11 @@ bool CircularBuffer::removeFromBuffer(uint8_t *data) {
 		return false; // no data available
 	}
 
-	cbuffer.tail = cbuffer.tail % BUFFER_SIZE;
+	if (cbuffer.tail == BUFFER_SIZE){
+		cbuffer.tail = 0;
+	}
+
+	//cbuffer.tail = cbuffer.tail % BUFFER_SIZE;
 
 	int currTail = cbuffer.tail;
 	*data = cbuffer.buffer[currTail];
@@ -63,10 +67,10 @@ int CircularBuffer::getFreeBytesSize() {
 		freeBufferSize =  BUFFER_SIZE;
 	}
 	else if (cbuffer.head > cbuffer.tail){ // H > T
-		freeBufferSize=  (BUFFER_SIZE - cbuffer.head + cbuffer.tail - 1);
+		freeBufferSize=  (BUFFER_SIZE - cbuffer.head + cbuffer.tail);
 	}
 	else if (cbuffer.head < cbuffer.tail){ // H < T
-		freeBufferSize =  (cbuffer.tail - cbuffer.head - 1);
+		freeBufferSize =  (cbuffer.tail - cbuffer.head);
 	}
 
 	printf("\nHead: %d Tail: %d\n", cbuffer.head, cbuffer.tail);
