@@ -1,34 +1,20 @@
-name: C++ CI/CD Pipeline
+name: C++ CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v1
-        with:
-          cmake-version: '3.21.1'  # Specify the CMake version you need
+    - name: Set up Docker
+      run: |
+        docker build -t my_cpp_project .
 
-      - name: Build with CMake
-        run: |
-          mkdir build
-          cd build
-          cmake ..
-          make
-
-      - name: Run tests
-        run: |
-          cd build
-          ctest --verbose
+    - name: Run tests
+      run: |
+        docker run my_cpp_project ./build/my_tests
+#        docker build --progress=plain -t my_cpp_project .
