@@ -3,11 +3,11 @@
 // Author      : Muahid Abbas
 // Version     :
 // Copyright   : 
-// Description : Hello World in C++, Ansi-style
+// Description : main function for the unit testing using gtests
 //============================================================================
 
 #ifdef UNIT_TESTING
-#include "gtest.h"
+#include <gtest/gtest.h>
 
 int main(int argc, char **argv)
 {

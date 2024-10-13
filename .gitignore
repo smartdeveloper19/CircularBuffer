@@ -8,3 +8,4 @@ circularBuffer.exe.stackdump
 Debug/.gitignore
 Debug/CircularBuffer.exe
 /Debug/
+src/build/
